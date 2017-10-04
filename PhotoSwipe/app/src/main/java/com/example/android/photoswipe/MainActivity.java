@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,12 +14,14 @@ import android.widget.ImageView;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LangRecyclerViewAdapter.ItemClickListener {
 
+    LangRecyclerViewAdapter adapter;
     Button mButtonPlayButton;
     Button mButtonStopButton;
     ImageView mHeaderImage;
     ArrayList<String> files;
+    RecyclerView recyclerView;
 
     MediaPlayer player;
 
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonPlayButton = (Button) findViewById(R.id.buttonPlayButton);
         mButtonPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                playLangClip("wowow1.mp3");
+                playLangClip(files.get(0));
             }
         });
 
@@ -50,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
         files = readAllFilesInAssets("lang");
 
         mButtonPlayButton.setText(files.get(0));
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSoundBoard);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, files.size()));
+        adapter = new LangRecyclerViewAdapter(this, files);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
     }
 
     public ArrayList<String> readAllFilesInAssets(String path) {
@@ -106,5 +116,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void onItemClick(View view, String name) {
+        playLangClip(name);
     }
 }
