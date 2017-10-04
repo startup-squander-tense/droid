@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonPlayButton = (Button) findViewById(R.id.buttonPlayButton);
         mButtonPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                playMp3AtPath("lang/wowow1.mp3");
+                playLangClip("wowow1.mp3");
             }
         });
 
@@ -49,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         files = readAllFilesInAssets("lang");
+
+        mButtonPlayButton.setText(files.get(0));
     }
 
     public ArrayList<String> readAllFilesInAssets(String path) {
@@ -58,9 +59,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             list = getAssets().list(path);
             if (list.length > 0) {
-                // This is a folder
                 for (String file : list) {
-                    files.add(file);
+                    if(file.endsWith(".mp3")) {
+                        file = file.substring(0, file.lastIndexOf(".mp3"));
+                        files.add(file);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -80,9 +83,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean playMp3AtPath(String path) {
+    private boolean playLangClip(String path) {
         try {
             stopPlayingIfPlaying();
+
+            if(!path.startsWith("lang/")) {
+                path = "lang/" + path;
+            }
+
+            if(!path.endsWith(".mp3")) {
+                path = path + ".mp3";
+            }
 
             AssetFileDescriptor afd = getAssets().openFd(path);
             player = new MediaPlayer();
