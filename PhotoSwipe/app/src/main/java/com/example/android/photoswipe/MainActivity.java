@@ -23,15 +23,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mButtonPlayButton = (Button) findViewById(R.id.buttonPlayButton);
-        mButtonStopButton = (Button) findViewById(R.id.buttonStop);
-
         mButtonPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                playMp3AtPath("lang.mp3");
+                playMp3AtPath("wowow1.mp3");
             }
         });
 
-        mButtonPlayButton.setOnClickListener(new View.OnClickListener() {
+        mButtonStopButton = (Button) findViewById(R.id.buttonStop);
+        mButtonStopButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 stopPlayingIfPlaying();
             }
@@ -39,14 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void stopPlayingIfPlaying() {
-        if(player != null && player.isPlaying()) {
+        if (player == null) {
+            return;
+        }
+
+        if(player.isPlaying()) {
             player.stop();
         }
     }
 
     private boolean playMp3AtPath(String path) {
         try {
-//            stopPlayingIfPlaying();
+            stopPlayingIfPlaying();
 
             AssetFileDescriptor afd = getAssets().openFd(path);
             player = new MediaPlayer();
