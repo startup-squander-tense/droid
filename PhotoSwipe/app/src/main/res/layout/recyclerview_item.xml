@@ -7,7 +7,6 @@
 
     <TextView
         android:id="@+id/textViewItem"
-        android:text="this is some test"
         android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

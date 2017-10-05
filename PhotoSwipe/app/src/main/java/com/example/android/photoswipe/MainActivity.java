@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LangRecyclerViewAdapter.ItemClickListener {
 
     LangRecyclerViewAdapter adapter;
-    Button mButtonPlayButton;
-    Button mButtonStopButton;
     ImageView mHeaderImage;
     ArrayList<String> files;
     RecyclerView recyclerView;
@@ -37,23 +35,7 @@ public class MainActivity extends AppCompatActivity implements LangRecyclerViewA
             e.printStackTrace();
         }
 
-        mButtonPlayButton = (Button) findViewById(R.id.buttonPlayButton);
-        mButtonPlayButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                playLangClip(files.get(0));
-            }
-        });
-
-        mButtonStopButton = (Button) findViewById(R.id.buttonStop);
-        mButtonStopButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                stopPlayingIfPlaying();
-            }
-        });
-
         files = readAllFilesInAssets("lang");
-
-        mButtonPlayButton.setText(files.get(0));
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSoundBoard);
         recyclerView.setLayoutManager(new GridLayoutManager(this, files.size()));
