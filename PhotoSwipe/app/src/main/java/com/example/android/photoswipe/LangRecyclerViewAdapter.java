@@ -15,10 +15,11 @@ import java.util.ArrayList;
  * Created by pete on 10/4/17.
  */
 
-public class LangRecyclerViewAdapter  extends RecyclerView.Adapter<LangRecyclerViewAdapter.ViewHolder> {
+public class LangRecyclerViewAdapter extends RecyclerView.Adapter<LangRecyclerViewAdapter.ViewHolder> {
+
     private ArrayList<String> mData = new ArrayList<String>();
     private LayoutInflater mInflater;
-    private  ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     public LangRecyclerViewAdapter(Context context, ArrayList<String> mData) {
         this.mData = mData;
