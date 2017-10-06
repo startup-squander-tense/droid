@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements LangRecyclerViewA
 
         if (player.isPlaying()) {
             player.stop();
+            player = null;
         }
     }
 
