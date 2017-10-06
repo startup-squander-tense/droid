@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements LangRecyclerViewA
     ImageView mHeaderImage;
     ArrayList<String> files;
     RecyclerView recyclerView;
+    private final int NUMBER_OF_COLUMNS = 3;
 
     MediaPlayer player;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements LangRecyclerViewA
         files = readAllFilesInAssets("lang");
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSoundBoard);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, files.size()));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, NUMBER_OF_COLUMNS));
         adapter = new LangRecyclerViewAdapter(this, files);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
